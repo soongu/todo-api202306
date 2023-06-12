@@ -60,7 +60,7 @@ public class TokenProvider {
                 // token header에 들어갈 서명
                 .signWith(
                         Keys.hmacShaKeyFor(SECRET_KEY.getBytes())
-                        , SignatureAlgorithm.ES512
+                        , SignatureAlgorithm.HS512
                 )
                 // token payload에 들어갈 클레임 설정
                 .setIssuer("바닐라겅듀") // iss: 발급자 정보
