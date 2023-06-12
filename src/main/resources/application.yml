@@ -30,4 +30,6 @@ springdoc:
     path: /myapi.html
 
 
+jwt:
+  secret: be6GWIs0VIxkrZ/mLkzEyjNX94okeN7+hV+7/yXIGLdveoQfVFTtDHg0iDTsK89WO1mRgigV/Z27zwieRP9OBQ==
 
