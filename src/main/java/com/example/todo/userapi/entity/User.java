@@ -1,5 +1,6 @@
 package com.example.todo.userapi.entity;
 
+import com.example.todo.todoapi.entity.Todo;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
@@ -7,6 +8,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Setter @Getter
 @ToString
@@ -42,5 +45,6 @@ public class User {
 //    @ColumnDefault("'COMMON'")
     @Builder.Default
     private Role role = Role.COMMON; // 유저 권한
+
 
 }
