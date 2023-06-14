@@ -1,12 +1,14 @@
 package com.example.todo.userapi.service;
 
 import com.example.todo.auth.TokenProvider;
+import com.example.todo.auth.TokenUserInfo;
 import com.example.todo.exception.DuplicatedEmailException;
 import com.example.todo.exception.NoRegisteredArgumentsException;
 import com.example.todo.userapi.dto.request.LoginRequestDTO;
 import com.example.todo.userapi.dto.request.UserRequestSignUpDTO;
 import com.example.todo.userapi.dto.response.LoginResponseDTO;
 import com.example.todo.userapi.dto.response.UserSignUpResponseDTO;
+import com.example.todo.userapi.entity.Role;
 import com.example.todo.userapi.entity.User;
 import com.example.todo.userapi.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -85,4 +87,30 @@ public class UserService {
     }
 
 
+    // 프리미엄으로 등급업
+    public LoginResponseDTO promoteToPremium(TokenUserInfo userInfo)
+        throws NoRegisteredArgumentsException, IllegalStateException
+    {
+
+        // 예외처리
+        User foundUser = userRepository
+                .findById(userInfo.getUserId())
+                .orElseThrow(
+                        () -> new NoRegisteredArgumentsException("회원 조회에 실패!")
+                );
+
+        // 일반회원이 아니면 예외
+        if (userInfo.getRole() != Role.COMMON) {
+            throw new IllegalStateException("일반 회원이 아니면 등급을 상승시킬 수 없습니다.");
+        }
+
+        // 등급 변경
+        foundUser.changeRole(Role.PREMIUM);
+        User saved = userRepository.save(foundUser);
+
+        // 토큰을 재발급
+        String token = tokenProvider.createToken(saved);
+
+        return new LoginResponseDTO(saved, token);
+    }
 }
