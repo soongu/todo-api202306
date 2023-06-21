@@ -40,3 +40,11 @@ jwt:
 # 업로드파일 저장 경로
 upload:
   path: D:/todo_upload
+
+# s3 접근 설정
+aws:
+  credentials:
+    accessKey: AKIAWFGAQ3PXNSYXOVF7
+    secretKey: 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
+  region: ap-northeast-2
+  bucketName: todo-app-upload-file-bucket13579
