@@ -206,5 +206,29 @@ public class UserController {
 
     }
 
+    // 프로필 사진 이미지 데이터를 클라이언트에게 응답처리
+    @GetMapping("/load-s3")
+    public ResponseEntity<?> loadS3(
+            @AuthenticationPrincipal TokenUserInfo userInfo
+    ) {
+        log.info("/api/auth/load-s3 GET ! - user: {}", userInfo.getEmail());
+
+        try {
+            // 클라이언트가 요청한 프로필 사진을 응답해야 함
+            // 1. 프로필 사진의 경로를 얻어야 함.
+            String filePath
+                    = userService.getProfilePath(userInfo.getUserId());
+
+            return ResponseEntity.ok()
+                    .body(filePath);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError()
+                    .body("파일을 찾을 수 없습니다.");
+        }
+
+    }
+
 
 }
