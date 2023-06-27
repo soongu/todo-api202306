@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/api/todos")
+@CrossOrigin
 //@CrossOrigin(origins = "http://localhost:3000")
 public class TodoController {
 
